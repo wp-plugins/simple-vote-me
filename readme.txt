@@ -28,6 +28,11 @@ This plugin allows you to set a votation for the post and pages.
 * Shortcode to inser whenever you want.
 * Two styles for Horizontal and Vertical so you can put where you want!.
 
+== ScreenShots ==
+1. This screen shot shows the result in "Horizontal Mode" with auto insert on post and with the default CSS.
+2. This screen shot shows 2 widgets. The first allows us to put the poll wherever we want, and the second shows the most voted.
+3. This screen shot shows the admin panel.
+
 
 == Installation ==
 
