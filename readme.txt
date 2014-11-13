@@ -4,15 +4,16 @@ Contributors:
 Tags: vote, face, count vote
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 3.0.2
+Stable tag: 1.0
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6NJE5ZMTTCB6&lc=ES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 License: GPLv2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Integrate your Wordpress with a simple Vote plugin with faces!
+Integrate your Wordpress with a simple vote plugin with smileys!
 
 == Description ==
 
-This plugin allow you to set a votation for the post and pages.
+This plugin allows you to set a votation for the post and pages.
 
 
 == Features ==
