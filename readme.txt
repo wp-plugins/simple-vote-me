@@ -44,6 +44,7 @@ This section describes how to install the plugin and get it working.
 5. In settings page you can set a few options!
 
 *(manually via FTP)*
+
 1. Upload the 'gt-simple-vote-me' folder to the '/wp-content/plugins/' directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. In settings page you can set a few options!
