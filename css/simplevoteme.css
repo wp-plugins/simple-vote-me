@@ -1,0 +1,49 @@
+.simplevotemeWrapper{
+    text-align:center;
+    color:#36413c;
+    overflow-y: auto;
+}
+.simplevotemeWrapper img{
+    width:50%;
+    vertical-align: middle;
+}
+
+.simplevotemeWrapper > span{
+    margin: 5px auto;
+    max-width: 150px;
+    min-width: 100px;
+    width: 60%;
+    padding: 5px;
+    display:block;
+    text-align: center;
+    border-radius: 1em;
+}
+.simplevotemeWrapper span.bad{
+    background:  rgba(233,83,69, 0.2);
+    border: 1px solid rgba(233,83,69,1);
+}
+.simplevotemeWrapper span.neutro{
+    background:  rgba(245,130,60, 0.2);
+    border: 1px solid rgba(245,130,60, 1);
+}
+.simplevotemeWrapper span.good{
+    background:  rgba(215,231,93, 0.2);
+    border: 1px solid rgba(215,231,93, 1);
+}
+
+.simplevotemeWrapper span.result {
+    display: inline-block;
+}
+.simplevotemeWrapper span.result small{
+    font-size:.85em;
+}
+
+.simplevotemeWrapper a{
+    cursor:pointer;
+}
+
+/** For Horizontal **/
+.simplevotemeWrapper.h > span{
+    display: inline-block;
+    margin-right: 10px;
+}
