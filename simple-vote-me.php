@@ -4,7 +4,7 @@ Plugin Name: Simple Vote Me
 Plugin URI: http://www.gonzalotorreras.com/soluciones/wordpress/plugins/simple-vote-me
 Description: This plugin add cute and simple votes for Wordpress post.
 Author: Gonzalo Torreras
-Version: 0.1
+Version: 1.0
 Author URI: http://www.gonzalotorreras.com
 */
 
