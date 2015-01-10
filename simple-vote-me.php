@@ -4,7 +4,7 @@ Plugin Name: Simple Vote Me
 Plugin URI: http://www.gonzalotorreras.com/soluciones/wordpress/plugins/simple-vote-me
 Description: This plugin add cute and simple votes for Wordpress post.
 Author: Gonzalo Torreras
-Version: 1.0.1
+Version: 1.1
 Author URI: http://www.gonzalotorreras.com
 */
 
@@ -45,11 +45,18 @@ Author URI: http://www.gonzalotorreras.com
    function gt_simplevoteme_page_admin(){
     global $blog_id;
         if( isset( $_POST['submit'] ) ){
-        
+            
+            update_option( 'gt_simplevoteme_title' , $_POST[ 'gt_simplevoteme_title' ] );
             update_option( 'gt_simplevoteme_auto_insert_content' , $_POST[ 'gt_simplevoteme_auto_insert_content' ] );
+            update_option( 'gt_simplevoteme_position' , $_POST[ 'gt_simplevoteme_position' ] );
             update_option( 'gt_simplevoteme_only_login' , $_POST[ 'gt_simplevoteme_only_login' ] );
             update_option( 'gt_simplevoteme_custom_css' , $_POST[ 'gt_simplevoteme_custom_css' ] );
             update_option( 'gt_simplevoteme_results' , $_POST[ 'gt_simplevoteme_results' ] );
+            update_option( 'gt_simplevoteme_custom_img' , $_POST[ 'gt_simplevoteme_custom_img' ] );
+            update_option( 'gt_simplevoteme_custom_img_good' , $_POST[ 'gt_simplevoteme_custom_img_good' ] );
+            update_option( 'gt_simplevoteme_custom_img_neutral' , $_POST[ 'gt_simplevoteme_custom_img_neutral' ] );
+            update_option( 'gt_simplevoteme_custom_img_bad' , $_POST[ 'gt_simplevoteme_custom_img_bad' ] );
+            
             if($_POST['gt_simplevoteme_reset'])
                 gt_simplevoteme_reset(1);
         }
@@ -62,12 +69,30 @@ Author URI: http://www.gonzalotorreras.com
                 <tr valign="top">
                     <th scope="row"><?php echo __('Auto Insert Content') ; ?></th>
                     <td>
+                    <?php $title = get_option('gt_simplevoteme_title'); ?>
+                        <input name="gt_simplevoteme_title" value="<?php if($title) echo $title; ?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Auto Insert Content') ; ?></th>
+                    <td>
                     <?php $auto = get_option('gt_simplevoteme_auto_insert_content'); ?>
                     <select id="auto" name="gt_simplevoteme_auto_insert_content" >
                         <option value="0" <?php if(!$auto) echo "selected"; ?>>No</option>
                         <option value="1" <?php if($auto == 1) echo "selected"; ?>>Only in post </option>
                         <option value="2" <?php if($auto == 2) echo "selected"; ?>>Only in pages </option>
                         <option value="3" <?php if($auto == 3) echo "selected"; ?>>Post and Pages </option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Position of the poll (on content)') ; ?><small>()Only if you have selected the auto insert).</small></th>
+                    <td>
+                    <?php $position = get_option('gt_simplevoteme_position'); ?>
+                    <select id="position" name="gt_simplevoteme_position" >
+                        <option value="0" <?php if(!$position) echo "selected"; ?>>After the Content</option>
+                        <option value="1" <?php if($position ==  1) echo "selected"; ?>>Before the content </option>
+                        <option value="2" <?php if($position ==  2) echo "selected"; ?>>Both, before and after </option>
                     </select>
                     </td>
                 </tr>
@@ -103,6 +128,41 @@ Author URI: http://www.gonzalotorreras.com
                     </th>
                 </tr>
                 <tr>
+                    <th scope="row"><?php echo __('Custom Images'); ?>
+                    <td>
+                        <?php $customImg = get_option('gt_simplevoteme_custom_img'); ?>
+                        <select name="gt_simplevoteme_custom_img">
+                            <option value="0" <?php if(!$customImg) echo "selected" ; ?>><?php echo __('No'); ?></option>
+                            <option value="1" <?php if($customImg) echo "selected" ; ?>><?php echo __('Yes'); ?></option>
+                        </select>
+                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Custom Image for Good'); ?>
+                    <td>
+                        <?php $customImgG = get_option('gt_simplevoteme_custom_img_good'); ?>
+                        <input name="gt_simplevoteme_custom_img_good" value="<?php if($customImgG) echo $customImgG ; ?>"/>
+                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Custom Image for Neutral'); ?>
+                    <td>
+                        <?php $customImgN = get_option('gt_simplevoteme_custom_img_neutral'); ?>
+                        <input name="gt_simplevoteme_custom_img_neutral" value="<?php if($customImgN) echo $customImgN ; ?>"/>
+                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Custom Image for Bad'); ?>
+                    <td>
+                        <?php $customImgB = get_option('gt_simplevoteme_custom_img_bad'); ?>
+                        <input name="gt_simplevoteme_custom_img_bad" value="<?php if($customImgB) echo $customImgB ; ?>"/>
+                    </td>
+                    </th>
+                </tr>
+                <tr>
                     <th scope="row"><?php echo __('Reset Votes'); ?>
                     <td>
                         <label for="reset">Reset al votes?</label>
@@ -131,23 +191,31 @@ Author URI: http://www.gonzalotorreras.com
    
    //page admin options
    function gt_simplevoteme_admin_options(){
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_title');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_auto_insert_content');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_position');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_only_login');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_css');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_results');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_img');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_img_good');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_img_neutral');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_img_bad');
    }
     
     function gt_simplevoteme_reset($reset = false){
-        $the_query = new WP_Query( 'meta_key=_simplevotemetotal&amp;orderby=meta_value_num&amp;order=DESC&amp;' );
-        // The Loop
-        while ( $the_query->have_posts() ) : $the_query->the_post();
-            update_post_meta(get_the_ID(), '_simplevotemetotal', 0);
-            update_post_meta(get_the_ID(), '_simplevotemepositive', 0);
-            update_post_meta(get_the_ID(), '_simplevotemenegative', 0);
-            update_post_meta(get_the_ID(), '_simplevotemeneutral', 0);
-        endwhile;
-        wp_reset_postdata();
-        
+        if($reset){
+            
+            $the_query = new WP_Query( 'meta_key=_simplevotemetotal&amp;orderby=meta_value_num&amp;order=DESC&amp;' );
+            // The Loop
+            while ( $the_query->have_posts() ) : $the_query->the_post();
+                update_post_meta(get_the_ID(), '_simplevotemetotal', 0);
+                update_post_meta(get_the_ID(), '_simplevotemepositive', 0);
+                update_post_meta(get_the_ID(), '_simplevotemenegative', 0);
+                update_post_meta(get_the_ID(), '_simplevotemeneutral', 0);
+            endwhile;
+            wp_reset_postdata();
+        }
     }
     function gt_simplevoteme_enqueuescripts(){
     
@@ -171,7 +239,15 @@ Author URI: http://www.gonzalotorreras.com
         
    
    
-
+    function gt_simplevoteme_getimgvote($type){
+        $custom = get_option('gt_simplevoteme_custom_img');
+        if(!$custom){
+            return "<img src='". SIMPLEVOTEMESURL ."/img/$type.png'/>";
+        } else{
+            $customImg = get_option("gt_simplevoteme_custom_img_$type");
+            return "<img src='$customImg'/>";
+        }
+    }
 
     function gt_simplevoteme_getvotelink($noLinks = false, $tipo = 'h'){
         $votemelink = "";
@@ -232,16 +308,18 @@ Author URI: http://www.gonzalotorreras.com
         
         if(!$noLinks){
         
-        $linkPositivo = '<a onclick="simplevotemeaddvote('.$post_ID.', 1);"><img src="'. SIMPLEVOTEMESURL .'/img/good.png"></a>';
-        $linkNegativo = '<a onclick="simplevotemeaddvote('.$post_ID.', 0);"><img src="'. SIMPLEVOTEMESURL .'/img/bad.png"></a>';
-        $linkNeutral  = '<a onclick="simplevotemeaddvote('.$post_ID.', 2);"><img src="'. SIMPLEVOTEMESURL .'/img/neutro.png"></a>';
+            $linkPositivo = '<a onclick="simplevotemeaddvote('.$post_ID.', 1);">'. gt_simplevoteme_getimgvote("good") .'</a>';
+            $linkNegativo = '<a onclick="simplevotemeaddvote('.$post_ID.', 0);">'. gt_simplevoteme_getimgvote("bad") .'</a>';
+            $linkNeutral  = '<a onclick="simplevotemeaddvote('.$post_ID.', 2);">'. gt_simplevoteme_getimgvote("neutral") .'</a>';
         } else{
-            $linkPositivo = '<img src="'. SIMPLEVOTEMESURL .'/img/good.png">';
-            $linkNegativo = '<img src="'. SIMPLEVOTEMESURL .'/img/bad.png">';
-            $linkNeutral  = '<img src="'. SIMPLEVOTEMESURL .'/img/neutro.png">';
+            $linkPositivo = gt_simplevoteme_getimgvote("good");
+            $linkNegativo = gt_simplevoteme_getimgvote("bad");
+            $linkNeutral  = gt_simplevoteme_getimgvote("neutral");
         }
         
-        $votemelink = "<div class='simplevotemeWrapper $tipo' id='simplevoteme-$post_ID' >";
+        $title = get_option('gt_simplevoteme_title');
+        
+        $votemelink = "<div class='simplevotemeWrapper $tipo' id='simplevoteme-$post_ID' >$title";
         $votemelink .= "<span class='bad'>$linkNegativo <span class='result'>$votemePercentNegative</span></span>";
         $votemelink .= "<span class='neutro'>$linkNeutral <span class='result'>$votemePercentNeutral</span></span>";
         $votemelink .= "<span class='good'>$linkPositivo <span class='result'>$votemePercentPositive</span></span>";
@@ -260,26 +338,52 @@ Author URI: http://www.gonzalotorreras.com
     }
      
     function gt_simplevoteme_printvotelink_auto($content){
-        $login = get_option('gt_simplevoteme_only_login'); 
+        
         $auto  = get_option('gt_simplevoteme_auto_insert_content');
         
-        if(!$auto)
-            return($content);
-            
-        if( $login && !is_user_logged_in() )
-            return($content);
-            
-        if($auto == 1 && is_single())
-            return $content.gt_simplevoteme_getvotelink();
+            if(!$auto)
+                return($content);
         
-        else if( $auto == 2 && is_page())
-            return $content.gt_simplevoteme_getvotelink();
+        $login = get_option('gt_simplevoteme_only_login'); //after auto, do not waste resources if is not necessary :)
+        
+        
+            if( $login && !is_user_logged_in() )
+                return($content);
             
-        else if( $auto == 3 && ( is_page() || is_single() ) )
-            return $content.gt_simplevoteme_getvotelink();
+        $position = get_option('gt_simplevoteme_position');//after login, do not waste resources if is not necessary :)
             
-        else
-            return($content); //nothing expected
+            if( ($auto == 1 || $auto == 3 ) && is_single() ){//if is only post(1) or post&page(3)
+                if(!$position)
+                    return $content.gt_simplevoteme_getvotelink();
+                
+                else if($position == 1)
+                    return gt_simplevoteme_getvotelink().$content;
+                
+                else if ($position == 2){
+                    $linksVote = gt_simplevoteme_getvotelink(); //launch just once
+                    return $linksVote.$content.$linksVote;
+                } else
+                    return $content;//nothing expected
+                    
+            }
+            
+        
+            else if( ($auto == 2 || $auto == 3) && is_page() ){//if is only page(2) or post&page(3)
+                if(!$postion)
+                    return $content.gt_simplevoteme_getvotelink();
+                
+                else if($position == 1)
+                    return gt_simplevoteme_getvotelink().$content;
+                
+                else if ($position == 3){
+                    $linksVote = gt_simplevoteme_getvotelink(); //launch just once
+                    return $linksVote.$content.$linksVote;
+                } else
+                    return $content;//nothing expected
+            }
+                
+            else
+                return($content); //nothing expected
     
         
         
@@ -290,12 +394,9 @@ Author URI: http://www.gonzalotorreras.com
     
 
     function gt_simplevoteme_aftervote(){
-    
-    $linkPositivo = '<img src="'. SIMPLEVOTEMESURL .'/img/good.png">';
-    
-    $linkNegativo = '<img src="'. SIMPLEVOTEMESURL .'/img/bad.png">';
-    
-    $linkNeutral  = '<img src="'. SIMPLEVOTEMESURL .'/img/neutro.png">';
+        $linkPositivo = gt_simplevoteme_getimgvote("good");
+        $linkNegativo = gt_simplevoteme_getimgvote("bad");
+        $linkNeutral  = gt_simplevoteme_getimgvote("neutral");
     }
 
     /** Ajax **/

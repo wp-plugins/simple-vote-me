@@ -5,10 +5,10 @@ Author: Gonzalo Torreras
 Author URI: http://gonzalotorreras.com
 Contributors:
 Tags: vote, smileys, count vote,good,bad,neutral
-Version: 1.0.1
+Version: 1.1
 Requires at least: 3.0
-Tested up to: 4.0
-Stable tag: 1.0.1
+Tested up to: 4.1
+Stable tag: 1.1
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6NJE5ZMTTCB6&lc=ES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,9 +20,7 @@ Integrate a simple voting plugin with smileys in your Wordpress!
 
 This plugin allows you to set a votation for the post and pages. This votation has three options (good, neutral and bad).
 
-
-== Features ==
-
+= Features =
 * Auto insert in content (it can be disabled).
 * Filter by post and page.
 * Total counts and vote percentages.
@@ -32,6 +30,9 @@ This plugin allows you to set a votation for the post and pages. This votation h
 * Widget to see the top rated post.
 * Shortcode to insert whenever you want.
 * Two styles: Horizontal and Vertical so you can put it wherever you want!.
+* Capability to set custom images.
+* You can set a title before the poll (if you want it).
+* Select if you want to show the poll before or after the content (or both).
 
 == ScreenShots ==
 1. This screen shot shows the result in "Horizontal Mode" with auto insert on post and with the default CSS.
@@ -44,6 +45,7 @@ This plugin allows you to set a votation for the post and pages. This votation h
 This section describes how to install the plugin and get it working.
 
 = Installing the Plugin =
+
 
 *(using the Wordpress Admin Console)*
 
@@ -79,6 +81,11 @@ The plugin uses minimum CSS and inserts valid HTML when necessary.
 
 
 == Changelog ==
+= 1.1 =
+* Added capability to set custom images.
+* Added title before poll (if you want it).
+* Added option to show the poll before or after the content (or both).
+
 = 1.0.1 =
 * Minor fixes
 
