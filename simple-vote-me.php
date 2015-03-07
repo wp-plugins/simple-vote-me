@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Simple Vote Me
-Plugin URI: http://www.gonzalotorreras.com/soluciones/wordpress/plugins/simple-vote-me
+Plugin URI: https://wordpress.org/plugins/simple-vote-me/
 Description: This plugin add cute and simple votes for Wordpress post.
 Author: Gonzalo Torreras
-Version: 1.1
+Version: 1.1.1
 Author URI: http://www.gonzalotorreras.com
 */
 
@@ -63,8 +63,54 @@ Author URI: http://www.gonzalotorreras.com
     ?>
         <div class="wrap">
             <h2> Simple Vote me </h2>
+            
+            <div class="rateOnWPORG">
+                <h4>Rate 'Simple-Vote-Me' on WP.org</h4>
+                <div class="rate">
+                    <div class="wporg-ratings rating-stars">
+                        <a target="_blank" href="/support/view/plugin-reviews/simple-vote-me?rate=1#postform" data-rating="1" title="">
+                            <span class="dashicons dashicons-star-filled" style="color:#e6b800 !important;"></span>
+                        </a>
+                        <a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/simple-vote-me?rate=2#postform" data-rating="2" title="">
+                            <span class="dashicons dashicons-star-empty" style="color:#e6b800 !important;"></span>
+                        </a>
+                        <a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/simple-vote-me?rate=3#postform" data-rating="3" title="">
+                            <span class="dashicons dashicons-star-empty" style="color:#e6b800 !important;"></span>
+                        </a>
+                        <a target="_blank" href="https://wordpress.org//support/view/plugin-reviews/simple-vote-me?rate=4#postform" data-rating="4" title="">
+                            <span class="dashicons dashicons-star-empty" style="color:#e6b800 !important;"></span>
+                        </a>
+                        <a target="_blank" href="https://wordpress.org//support/view/plugin-reviews/simple-vote-me?rate=5#postform" data-rating="5" title="">
+                            <span class="dashicons dashicons-star-empty" style="color:#e6b800 !important;"></span>
+                        </a>
+                    </div>
+                </div>
+                <style>
+                    .rateOnWPORG{float: right;margin-right: 4em;margin-bottom: -5em;}
+                    .rating-stars a{text-decoration:none;}
+                </style>
+                <script>
+                    jQuery(document).ready( function($) {
+                        $('.rating-stars').find('a').hover(
+                            function() {
+                                $(this).nextAll('a').children('span').removeClass('dashicons-star-filled').addClass('dashicons-star-empty');
+                                $(this).prevAll('a').children('span').removeClass('dashicons-star-empty').addClass('dashicons-star-filled');
+                                $(this).children('span').removeClass('dashicons-star-empty').addClass('dashicons-star-filled');
+                            }, function() {
+                                var rating = $('input#rating').val();
+                                if (rating) {
+                                    var list = $('.rating-stars a');
+                                    list.children('span').removeClass('dashicons-star-filled').addClass('dashicons-star-empty');
+                                    list.slice(0, rating).children('span').removeClass('dashicons-star-empty').addClass('dashicons-star-filled');
+                                }
+                            }
+                        );
+                    });
+                </script>
+            </div>
+            
             <form method="post" action="" id="simplevoteme">
-
+                
                 <table class="form-table">
                 <tr valign="top">
                     <th scope="row"><?php echo __('Auto Insert Content') ; ?></th>
