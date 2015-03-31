@@ -4,7 +4,7 @@ Plugin Name: Simple Vote Me
 Plugin URI: https://wordpress.org/plugins/simple-vote-me/
 Description: This plugin add cute and simple votes for Wordpress post.
 Author: Gonzalo Torreras
-Version: 1.1.1
+Version: 1.2
 Author URI: http://www.gonzalotorreras.com
 */
 
@@ -48,13 +48,19 @@ Author URI: http://www.gonzalotorreras.com
             
             update_option( 'gt_simplevoteme_title' , $_POST[ 'gt_simplevoteme_title' ] );
             update_option( 'gt_simplevoteme_auto_insert_content' , $_POST[ 'gt_simplevoteme_auto_insert_content' ] );
+            update_option( 'gt_simplevoteme_auto_insert_home' , $_POST[ 'gt_simplevoteme_auto_insert_home' ] );
             update_option( 'gt_simplevoteme_position' , $_POST[ 'gt_simplevoteme_position' ] );
             update_option( 'gt_simplevoteme_only_login' , $_POST[ 'gt_simplevoteme_only_login' ] );
+            update_option( 'gt_simplevoteme_default_css' , $_POST[ 'gt_simplevoteme_default_css' ] );
             update_option( 'gt_simplevoteme_custom_css' , $_POST[ 'gt_simplevoteme_custom_css' ] );
             update_option( 'gt_simplevoteme_results' , $_POST[ 'gt_simplevoteme_results' ] );
+            update_option( 'gt_simplevoteme_results_type' , $_POST[ 'gt_simplevoteme_results_type' ] );
             update_option( 'gt_simplevoteme_custom_img' , $_POST[ 'gt_simplevoteme_custom_img' ] );
+            update_option( 'gt_simplevoteme_custom_border_good' , $_POST[ 'gt_simplevoteme_custom_border_good' ] );
             update_option( 'gt_simplevoteme_custom_img_good' , $_POST[ 'gt_simplevoteme_custom_img_good' ] );
+            update_option( 'gt_simplevoteme_custom_border_neutral' , $_POST[ 'gt_simplevoteme_custom_border_neutral' ] );
             update_option( 'gt_simplevoteme_custom_img_neutral' , $_POST[ 'gt_simplevoteme_custom_img_neutral' ] );
+            update_option( 'gt_simplevoteme_custom_border_bad' , $_POST[ 'gt_simplevoteme_custom_border_bad' ] );
             update_option( 'gt_simplevoteme_custom_img_bad' , $_POST[ 'gt_simplevoteme_custom_img_bad' ] );
             
             if($_POST['gt_simplevoteme_reset'])
@@ -72,16 +78,16 @@ Author URI: http://www.gonzalotorreras.com
                             <span class="dashicons dashicons-star-filled" style="color:#e6b800 !important;"></span>
                         </a>
                         <a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/simple-vote-me?rate=2#postform" data-rating="2" title="">
-                            <span class="dashicons dashicons-star-empty" style="color:#e6b800 !important;"></span>
+                            <span class="dashicons dashicons-star-filled" style="color:#e6b800 !important;"></span>
                         </a>
                         <a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/simple-vote-me?rate=3#postform" data-rating="3" title="">
-                            <span class="dashicons dashicons-star-empty" style="color:#e6b800 !important;"></span>
+                            <span class="dashicons dashicons-star-filled" style="color:#e6b800 !important;"></span>
                         </a>
                         <a target="_blank" href="https://wordpress.org//support/view/plugin-reviews/simple-vote-me?rate=4#postform" data-rating="4" title="">
-                            <span class="dashicons dashicons-star-empty" style="color:#e6b800 !important;"></span>
+                            <span class="dashicons dashicons-star-filled" style="color:#e6b800 !important;"></span>
                         </a>
                         <a target="_blank" href="https://wordpress.org//support/view/plugin-reviews/simple-vote-me?rate=5#postform" data-rating="5" title="">
-                            <span class="dashicons dashicons-star-empty" style="color:#e6b800 !important;"></span>
+                            <span class="dashicons dashicons-star-filled" style="color:#e6b800 !important;"></span>
                         </a>
                     </div>
                 </div>
@@ -113,14 +119,14 @@ Author URI: http://www.gonzalotorreras.com
                 
                 <table class="form-table">
                 <tr valign="top">
-                    <th scope="row"><?php echo __('Auto Insert Content') ; ?></th>
+                    <th scope="row"><?php echo __('Title') ; ?></th>
                     <td>
                     <?php $title = get_option('gt_simplevoteme_title'); ?>
                         <input name="gt_simplevoteme_title" value="<?php if($title) echo $title; ?>" />
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php echo __('Auto Insert Content') ; ?></th>
+                    <th scope="row"><?php echo __('Auto Insert in Content?') ; ?></th>
                     <td>
                     <?php $auto = get_option('gt_simplevoteme_auto_insert_content'); ?>
                     <select id="auto" name="gt_simplevoteme_auto_insert_content" >
@@ -132,24 +138,35 @@ Author URI: http://www.gonzalotorreras.com
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php echo __('Position of the poll (on content)') ; ?><small>()Only if you have selected the auto insert).</small></th>
+                    <th scope="row"><?php echo __('Display in Home?') ; ?></th>
                     <td>
-                    <?php $position = get_option('gt_simplevoteme_position'); ?>
-                    <select id="position" name="gt_simplevoteme_position" >
-                        <option value="0" <?php if(!$position) echo "selected"; ?>>After the Content</option>
-                        <option value="1" <?php if($position ==  1) echo "selected"; ?>>Before the content </option>
-                        <option value="2" <?php if($position ==  2) echo "selected"; ?>>Both, before and after </option>
-                    </select>
+                        <?php $home = get_option('gt_simplevoteme_auto_insert_home'); ?>
+                        <label for="home_yes"><?php echo __('Yes'); ?></label>
+                        <input type="radio" id="home_yes" name="gt_simplevoteme_auto_insert_home" value="1" <?php if ($home) echo "checked"; ?> />
+                        
+                        <label for="home_no"><?php echo __('No'); ?></label>
+                        <input type="radio" id="home_no" name="gt_simplevoteme_auto_insert_home" value="0" <?php if (!$home) echo "checked"; ?> />    
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Position of the poll (on content)') ; ?></br><small><?php echo __('(Only if you have selected the auto insert).'); ?></small></th>
+                    <td>
+                        <?php $position = get_option('gt_simplevoteme_position'); ?>
+                        <select id="position" name="gt_simplevoteme_position" >
+                            <option value="0" <?php if(!$position) echo "selected"; ?>>After the Content</option>
+                            <option value="1" <?php if($position ==  1) echo "selected"; ?>>Before the content </option>
+                            <option value="2" <?php if($position ==  2) echo "selected"; ?>>Both, before and after </option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><?php echo __('Only for registered users'); ?>
                      <td>
-                     <?php $login = get_option('gt_simplevoteme_only_login'); ?>
-                     <label for="only_login_yes"><?php echo __('Yes'); ?></label>
-                     <input type="radio" id="only_login_yes" name="gt_simplevoteme_only_login" value="1"<?php if ($login) echo "checked"; ?> />
-                     <label for="only_login_no"> <?php echo __('No'); ?></label>
-                     <input type="radio" id="only_login_yes" name="gt_simplevoteme_only_login" value="0"<?php if (!$login) echo "checked"; ?> />
+                         <?php $login = get_option('gt_simplevoteme_only_login'); ?>
+                         <label for="only_login_yes"><?php echo __('Yes'); ?></label>
+                         <input type="radio" id="only_login_yes" name="gt_simplevoteme_only_login" value="1"<?php if ($login) echo "checked"; ?> />
+                         <label for="only_login_no"> <?php echo __('No'); ?></label>
+                         <input type="radio" id="only_login_yes" name="gt_simplevoteme_only_login" value="0"<?php if (!$login) echo "checked"; ?> />
                      </td>
                     </th>
                 </tr>
@@ -162,6 +179,29 @@ Author URI: http://www.gonzalotorreras.com
                             <option value="2" <?php if($results == 2) echo "selected"; ?>><?php echo __('After vote'); ?></option>
                             <option value="0" <?php if(!$results ) echo "selected"; ?>><?php echo __('Never') ; ?></option>
                         </select>
+                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('What to show?'); ?>
+                    <td>
+                        <?php $results_type= get_option('gt_simplevoteme_results_type'); ?>
+                        <select id="results" name="gt_simplevoteme_results_type" >
+                            <option value="0" <?php if(!$results_type) echo "selected"; ?>><?php echo __('Total votes and percentages'); ?></option>
+                            <option value="1" <?php if($results_type ) echo "selected"; ?>><?php echo __('Only percentages') ; ?></option>
+                            <option value="2" <?php if($results_type == 2) echo "selected"; ?>><?php echo __('Only total votes'); ?></option>
+                        </select>
+                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Default CSS'); ?>
+                    <td>
+                        <?php $default_css= get_option('gt_simplevoteme_default_css'); ?>
+                        <label for="default_css_yes"><?php echo __('Activate'); ?></label>
+                        <input type="radio" id="default_css_yes" name="gt_simplevoteme_default_css" value="0"<?php if (!$default_css) echo "checked"; ?> />
+                        <label for="default_css_nope"><?php echo __('Deactivate'); ?></label>
+                        <input type="radio" id="default_css_nope" name="gt_simplevoteme_default_css" value="1"<?php if ($default_css) echo "checked"; ?> />
                     </td>
                     </th>
                 </tr>
@@ -185,33 +225,56 @@ Author URI: http://www.gonzalotorreras.com
                     </th>
                 </tr>
                 <tr>
-                    <th scope="row"><?php echo __('Custom Image for Good'); ?>
+                    <th scope="row"><?php echo __('Custom image for Good'); ?>
                     <td>
                         <?php $customImgG = get_option('gt_simplevoteme_custom_img_good'); ?>
-                        <input name="gt_simplevoteme_custom_img_good" value="<?php if($customImgG) echo $customImgG ; ?>"/>
+                        <input type="text" name="gt_simplevoteme_custom_img_good" value="<?php if($customImgG) echo $customImgG ; ?>"/>
                     </td>
                     </th>
                 </tr>
                 <tr>
-                    <th scope="row"><?php echo __('Custom Image for Neutral'); ?>
+                    <th scope="row"><?php echo __('Custom border for Good'); ?>
+                    <td>
+                        <?php $customBorG = get_option('gt_simplevoteme_custom_border_good'); ?>
+                        <input type="color" name="gt_simplevoteme_custom_border_good" value="<?php if($customBorG) echo $customBorG ; ?>"/>
+                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Custom image for Neutral'); ?>
                     <td>
                         <?php $customImgN = get_option('gt_simplevoteme_custom_img_neutral'); ?>
                         <input name="gt_simplevoteme_custom_img_neutral" value="<?php if($customImgN) echo $customImgN ; ?>"/>
                     </td>
                     </th>
                 </tr>
+                                <tr>
+                    <th scope="row"><?php echo __('Custom border for Neutral'); ?>
+                    <td>
+                        <?php $customBorN = get_option('gt_simplevoteme_custom_border_neutral'); ?>
+                        <input type="color" name="gt_simplevoteme_custom_border_neutral" value="<?php if($customBorN) echo $customBorN ; ?>"/>
+                    </td>
+                    </th>
+                </tr>
                 <tr>
-                    <th scope="row"><?php echo __('Custom Image for Bad'); ?>
+                    <th scope="row"><?php echo __('Custom image for Bad'); ?>
                     <td>
                         <?php $customImgB = get_option('gt_simplevoteme_custom_img_bad'); ?>
                         <input name="gt_simplevoteme_custom_img_bad" value="<?php if($customImgB) echo $customImgB ; ?>"/>
                     </td>
                     </th>
                 </tr>
-                <tr>
-                    <th scope="row"><?php echo __('Reset Votes'); ?>
+                                <tr>
+                    <th scope="row"><?php echo __('Custom border for Bad'); ?>
                     <td>
-                        <label for="reset">Reset al votes?</label>
+                        <?php $customBorB = get_option('gt_simplevoteme_custom_border_bad'); ?>
+                        <input type="color" name="gt_simplevoteme_custom_border_bad" value="<?php if($customBorB) echo $customBorB ; ?>"/>
+                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Reset all votes?'); ?>
+                    <td>
                         <select id="reset" name="gt_simplevoteme_reset">
                             <option value="0"><?php echo __('No' ); ?></option>
                             <option value="1"><?php echo __('Yes'); ?></option>
@@ -239,14 +302,23 @@ Author URI: http://www.gonzalotorreras.com
    function gt_simplevoteme_admin_options(){
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_title');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_auto_insert_content');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_auto_insert_home');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_position');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_only_login');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_default_css');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_css');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_results');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_results_type');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_img');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_img_good');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_border_good');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_background_good');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_img_neutral');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_border_neutral');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_background_neutral');
         register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_img_bad');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_border_bad');
+        register_setting( 'gt_simplevoteme_options', 'gt_simplevoteme_custom_background_bad');
    }
     
     function gt_simplevoteme_reset($reset = false){
@@ -275,9 +347,9 @@ Author URI: http://www.gonzalotorreras.com
         
         wp_localize_script( 'gtsimplevoteme', 'gtsimplevotemeajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
         
-        $css = get_option('gt_simplevoteme_custom_css');
+        $css = get_option('gt_simplevoteme_custom_default_css');
         
-        if(!$css)
+        if(!$css)//default = yes = 0
             wp_enqueue_style( 'simplevotemestyle' );
         
     }
@@ -314,25 +386,52 @@ Author URI: http://www.gonzalotorreras.com
         $votemeTotal = get_post_meta($post_ID, '_simplevotemetotal', true) != '' ? get_post_meta($post_ID, '_simplevotemetotal', true) : '0';
         
         $votemeResults = get_option('gt_simplevoteme_results');
+        $votemeResultsType = get_option('gt_simplevoteme_results_type');
         if($votemeResults){
             if($votemeResults == 1 || ($votemeResults == 2 && $noLinks) ){
             
                 if ($votemeTotal != 0 || $votemeTotal != '' ){
                     
-                    if($votemeNegative > 0)
-                        $votemePercentNegative = round (  $votemeNegative / $votemeTotal, 2) * 100 . "%<small> ($votemeNegative) </small>";
+                    if($votemeNegative > 0) //if there are votes
+                        $percentNegative = round ( $votemeNegative / $votemeTotal, 2) * 100 ."%";
                     else
-                        $votemePercentNegative = 0 . "<small> ($votemeNegative) </small>";
+                        $percentNegative = "0%";
                     
-                    if($votemeNeutral > 0)
-                        $votemePercentNeutral  = round (  $votemeNeutral / $votemeTotal, 2 ) * 100 . "%<small> ($votemeNeutral) </small>";
+                    if($votemeResultsType == 2)//just total votes
+                        $votemePercentNegative = $votemeNegative;
+                    else if($votemeResultsType == 1)//only percentages
+                        $votemePercentNegative = $percentNegative;
+                    else //all
+                        $votemePercentNegative = "$percentNegative<small> ($votemeNegative) </small>";
+
+
+                    
+                    if($votemeNeutral > 0) //if there are votes
+                        $percentNeutral  = round ( $votemeNeutral / $votemeTotal, 2 ) * 100 . "%";
                     else 
-                        $votemePercentNeutral = 0 . "<small> ($votemeNeutral) </small>";
+                        $percentNeutral  = "0%";
+                    
+                    if($votemeResultsType == 2)//just total votes
+                        $votemePercentNeutral = $votemeNeutral;
+                    else if($votemeResultsType == 1)//only percentages
+                        $votemePercentNeutral = $percentNeutral;
+                    else //all
+                        $votemePercentNeutral = "$percentNeutral<small> ($votemeNeutral) </small>";
+
+                    
                     
                     if ($votemePositive > 0)
-                        $votemePercentPositive = round (  $votemePositive / $votemeTotal, 2) * 100 . "%<small> ($votemePositive) </small>";
+                        $percentPositive = round (  $votemePositive / $votemeTotal, 2) * 100 . "%";
                     else
-                        $votemePercentPositive = 0 . "<small> ($votemePositive) </small>";
+                        $percentPositive = "0%";
+                        
+                    if($votemeResultsType == 2)//just total votes
+                        $votemePercentPositive = $votemePositive;
+                    else if($votemeResultsType == 1)//only percentages
+                        $votemePercentPositive = $percentPositive;
+                    else //all
+                        $votemePercentPositive = "$percentPositive<small> ($votemePositive) </small>";
+                    
                     
                 } else{
                         $votemePercentNegative = "";
@@ -378,16 +477,26 @@ Author URI: http://www.gonzalotorreras.com
         if($css)
             $result .= "<style>".$css."</style>";
         
-            
-            
+        $bor_G = get_option('gt_simplevoteme_custom_border_good');
+        $bor_N = get_option('gt_simplevoteme_custom_border_neutral');    
+        $bor_B = get_option('gt_simplevoteme_custom_border_bad');
+        $bg_B  = get_option('gt_simplevoteme_custom_background_bad');
+        $bg_N  = get_option('gt_simplevoteme_custom_background_neutral');
+        $bg_G  = get_option('gt_simplevoteme_custom_background_good');
+        
+        if($bor_G || $bor_N || $bor_B || $bg_G || $bg_N || $bg_B)
+            $result .= "<style>.simplevotemeWrapper span.bad{  background: rgba($gb_B);border:1px solid rgba($bor_B);.simplevotemeWrapper span.neutro{  background: rgba($gb_N);border:1px solid rgba($bor_N);.simplevotemeWrapper span.good{  background: rgba($gb_G);border:1px solid rgba($bor_G);}</style>";
+        
         return $result;
     }
      
     function gt_simplevoteme_printvotelink_auto($content){
         
+        $home = get_option('gt_simplevoteme_auto_insert_home');
+        
         $auto  = get_option('gt_simplevoteme_auto_insert_content');
         
-            if(!$auto)
+            if(!$auto && ( is_home() &&  !$home) )
                 return($content);
         
         $login = get_option('gt_simplevoteme_only_login'); //after auto, do not waste resources if is not necessary :)
@@ -395,10 +504,24 @@ Author URI: http://www.gonzalotorreras.com
         
             if( $login && !is_user_logged_in() )
                 return($content);
-            
+                
+                
         $position = get_option('gt_simplevoteme_position');//after login, do not waste resources if is not necessary :)
             
-            if( ($auto == 1 || $auto == 3 ) && is_single() ){//if is only post(1) or post&page(3)
+        if(is_home() && $home){ //if is home and home is active
+                if(!$position)
+                    return $content.gt_simplevoteme_getvotelink();
+                
+                else if($position == 1)
+                    return gt_simplevoteme_getvotelink().$content;
+                
+                else if ($position == 2){
+                    $linksVote = gt_simplevoteme_getvotelink(); //launch just once
+                    return $linksVote.$content.$linksVote;
+                } else
+                    return $content;//nothing expected
+            
+        } else if( ($auto == 1 || $auto == 3 ) && is_single() ){//if is only post(1) or post&page(3)
                 if(!$position)
                     return $content.gt_simplevoteme_getvotelink();
                 

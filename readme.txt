@@ -5,10 +5,10 @@ Author: Gonzalo Torreras
 Author URI: http://gonzalotorreras.com
 Contributors:
 Tags: vote, smileys, count vote,good,bad,neutral
-Version: 1.1
+Version: 1.2
 Requires at least: 3.0
-Tested up to: 4.1
-Stable tag: 1.1
+Tested up to: 4.1.1
+Stable tag: 1.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6NJE5ZMTTCB6&lc=ES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,6 +81,14 @@ The plugin uses minimum CSS and inserts valid HTML when necessary.
 
 
 == Changelog ==
+= 1.2 =
+* Addded an option to show the poll on Home page.
+* Minor fixes.
+
+=1.1.1 =
+* Capabilities to change color wraps in images (and borders).
+* Added option to maintain the default CSS and add minor CSS changes.
+
 = 1.1 =
 * Added capability to set custom images.
 * Added title before poll (if you want it).
