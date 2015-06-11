@@ -5,10 +5,10 @@ Author: Gonzalo Torreras
 Author URI: http://gonzalotorreras.com
 Contributors:
 Tags: vote, smileys, count vote,good,bad,neutral
-Version: 1.2
+Version: 1.3
 Requires at least: 3.0
 Tested up to: 4.1.1
-Stable tag: 1.2
+Stable tag: 1.3
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6NJE5ZMTTCB6&lc=ES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -38,7 +38,7 @@ This plugin allows you to set a votation for the post and pages. This votation h
 1. This screen shot shows the result in "Horizontal Mode" with auto insert on post and with the default CSS.
 2. This screen shot shows 2 widgets. The first allows us to put the poll wherever we want, and the second shows the most voted.
 3. This screen shot shows the admin panel.
-
+4. Inside create/edit post/page/custom post you can see who vote this.
 
 == Installation ==
 
@@ -81,11 +81,17 @@ The plugin uses minimum CSS and inserts valid HTML when necessary.
 
 
 == Changelog ==
+= 1.3 =
+* Now you can limit the votes by user!
+* Columns for pages and custom posts added in admin panel
+* You can see who votes but older votes from version 1.2 and less will appear like Annonymous :( (sorry the info wasn't saved before).
+* Added support for custom post and pages. Now you can select which do you want activate.
+
 = 1.2 =
 * Addded an option to show the poll on Home page.
 * Minor fixes.
 
-=1.1.1 =
+= 1.1.1 =
 * Capabilities to change color wraps in images (and borders).
 * Added option to maintain the default CSS and add minor CSS changes.
 

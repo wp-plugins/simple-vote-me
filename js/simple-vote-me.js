@@ -1,16 +1,12 @@
-function simplevotemeaddvote(postId, tipo){
-    if(tipo == 1)
-        tipo = 'positive';
-    else if (tipo == 2)
-        tipo = 'neutral';
-    else
-        tipo = 'negative';
+function simplevotemeaddvote(postId, tipo, userID){
     jQuery.ajax({
     type: 'POST',
     url: gtsimplevotemeajax.ajaxurl,
     data: {
-    action: 'simplevoteme_add' + tipo,
-    postid: postId
+    action: 'simplevoteme_addvote',
+    tipo: tipo,
+    postid: postId,
+    userid: userID
 },
  
 success:function(data, textStatus, XMLHttpRequest){
